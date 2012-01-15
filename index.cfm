@@ -1,3 +1,5 @@
+<cfabort>
+
 <cfdump var="#URL#">
 <cfparam name="url.version" default="current">
 <cfparam name="url.item" default="">

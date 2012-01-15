@@ -33,9 +33,9 @@
 	<div class="topbar">
       <div class="topbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="#buildURL("/")#">Railo Docs</a>
+          <a class="brand" href="#buildURL("home")#">Railo Docs</a>
           <ul class="nav">
-            <li class="active"><a href="#buildURL("/")#">Home</a></li>
+            <li class="active"><a href="#buildURL("home")#">Home</a></li>
             <li><a href="#buildURL("current.tags")#">Tags</a></li>
             <li><a href="#buildURL("current.functions")#">Functions</a></li>
           </ul>
