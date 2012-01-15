@@ -2,3 +2,4 @@
 .DS_Store
 WEB-INF/flex/
 WEB-INF/railo/
+.idea/
