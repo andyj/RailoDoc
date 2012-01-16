@@ -11,6 +11,29 @@
 			<h3>Description</h3>
 			<p>#tagInfo.description#</p>
 		</div>	
+		<div class="span16">
+			<h3>Syntax</h3>
+			<cfdump var="#tagInfo#">
+			<code>
+				<!--- Body type: free, prohibited --->
+				&lt;#prefix##rc.item#
+				<cfloop collection="#tagInfo.attributes#" item="attr">
+				<cfif tagInfo.attributes[attr].required>
+				#attr# = "#tagInfo.attributes[attr].type#"<br>
+				<cfelse>
+				[#attr# = "#tagInfo.attributes[attr].type#"]<br>				
+				</cfif>
+				</cfloop>
+				#prefix##rc.item#&gt;
+			</code>
+			<br>
+			This tag also supports CFSCript syntax:
+			
+			<code>
+			
+			</code>
+		</div>
+		
 		
 		<div class="span16">
 			<h3>Attributes</h3>

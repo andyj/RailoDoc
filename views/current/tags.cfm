@@ -8,6 +8,7 @@
 		aAlphabet = list.getGroupNames();
 		HalfLetter = list.getHalfWayGroup();
 		litems = "_,x_";
+		aBodyTypes = {};
 	</cfscript>
 <section id="tags">
   <div class="page-header">
@@ -39,10 +40,12 @@
 		
 			<h4><a name="#al#">#UCase(al)#</a></h4>
 			<cfset items = list.getItemsInGroup(al)>
+			
 			<ul>
 				<cfloop array="#items#" index="i">				
 				<li>
 					<cfset taginfo = getTagData(prefix,i)>
+					<cfset aBodyTypes[tagInfo.bodyType] = "">
 					<cfif taginfo.status == "implemeted">
 					<a href="#buildURL("current.tag&item=#i#")#">#prefix##i#
 					<cfelse>
@@ -55,5 +58,7 @@
 	</cfoutput>
 	    </div>
 	</div>
+	
+	<cfdump var="#aBodyTypes#">
   
 </section>
