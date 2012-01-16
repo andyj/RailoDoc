@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     Jan 16, 2012 7:55:23 PM                                                        
+
+     RailoDocs    
+     Builds the project after Jenkins downloads it and runs any tests we need to. 
+                   
+     markdrew                                                                
+     ====================================================================== -->
+<project name="RailoDocs" default="main">
+    <description>
+            Builds the project after Jenkins downloads it and runs any tests we need to. 
+    </description>
+
+    <target name="main" depends="sync" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
+        <echo>Done the deploy ${deploydir}</echo>
+    </target>
+
+    <target name="sync">
+    	<sync todir="${deploydir}">
+    		<fileset dir=".">
+    			<exclude name="WEB-INF/"/>
+    			<exclude name="README.md"/>
+    			<exclude name="build.xml"/>
+    			<exclude name=".git"/>
+    		</fileset>
+    	</sync>
+    </target>
+
+</project>

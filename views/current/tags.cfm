@@ -59,6 +59,4 @@
 	    </div>
 	</div>
 	
-	<cfdump var="#aBodyTypes#">
-  
 </section>
