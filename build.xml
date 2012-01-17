@@ -10,14 +10,9 @@
 <project name="RailoDocs" default="main">
     <description>
             Builds the project after Jenkins downloads it and runs any tests we need to. 
-    	
     		You have to set the deploydir in the call to ant so in jenkins you can do 
-    	
-    		deploydir=C:\bla bla
-    	
+    		deploydir=C:/Inetpub/wwroot     (remember that passing windows paths, you have to make all \ to /)
     		or from the command line ant -Ddeploydir= etc. 
-    	
-    	
     </description>
 
     <target name="main" depends="sync" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
@@ -26,17 +21,32 @@
 
     <target name="sync">
     	<sync todir="${deploydir}" includeEmptyDirs="true">
-    		
     		<fileset dir=".">
     			<exclude name="WEB-INF/"/>
     			<exclude name="README.md"/>
     			<exclude name="build.xml"/>
     			<exclude name=".git"/>
+    			<exclude name="mxunit/"/>
     		</fileset>
     		<preserveintarget>
     		    <include name="WEB-INF/"/>
 			</preserveintarget>
     	</sync>
     </target>
+	
+	<target name="sql">
+		<sql
+		    driver="org.gjt.mm.mysql.Driver"
+			classpath="lib/mysql-connector-java-bin.jar"
+		    url="jdbc:mysql://localhost:3306/railodocs?characterEncoding=UTF-8&amp;useUnicode=true"
+		    userid="root"
+		    password="universe">
+		  <path>
+		    <fileset dir="sql/">
+		      <include name="*.sql"/>
+		    </fileset>
+		  </path>
+		</sql>
+	</target>
 
 </project>

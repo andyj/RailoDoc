@@ -9,7 +9,6 @@
 
 -->
 <urlrewrite>
-
     <rule>
         <note>
             The rule means that requests to /test/status/ will be redirected to /rewrite-status
@@ -19,6 +18,7 @@
         <to type="redirect">%{context-path}/rewrite-status</to>
     </rule>
     
+   <!--
     <rule>
         <note>
         </note>
@@ -40,7 +40,7 @@
     </outbound-rule>
 
 
-    <!--
+ 
 
     INSTALLATION
 
