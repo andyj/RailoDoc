@@ -7,26 +7,60 @@
                    
      markdrew                                                                
      ====================================================================== -->
-<project name="RailoDocs" default="main">
+<project name="railodocs" default="main">
     <description>
             Builds the project after Jenkins downloads it and runs any tests we need to. 
     		You have to set the deploydir in the call to ant so in jenkins you can do 
     		deploydir=C:/Inetpub/wwroot     (remember that passing windows paths, you have to make all \ to /)
     		or from the command line ant -Ddeploydir= etc. 
     </description>
-
+	
+   
+	
+	
+	<!--
+		why is it looking for ~/railodocs.properties? 
+		So that we don't have to check in public stuff! 
+		Means that file takes it over
+	-->
+	<property file="${user.home}/${ant.project.name}.properties"/>
+	<property file="build.properties"/>
+	
+	<!-- check that the properties are defined -->
+	<property name="prop.message" value="must be defined, preferably in build.properties or  ${user.home}/${ant.project.name}.properties (details at javaranch.com/props)"/>
+	<fail message="deploy.dir ${prop.message}" unless="deploy.dir"/>
+	<fail message="db.name ${prop.message}" unless="db.name"/>
+	<fail message="db.user ${prop.message}" unless="db.user"/>
+	<fail message="db.password ${prop.message}" unless="db.password"/>
+	<fail message="db.host ${prop.message}" unless="db.host"/>
+	<fail message="db.port ${prop.message}" unless="db.port"/>
+	<fail message="deploy.host ${prop.message}" unless="deploy.host"/>
+	<fail message="deploy.port ${prop.message}" unless="deploy.port"/>
+	
+	
+	
     <target name="main" depends="sync" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
-        <echo>Done the deploy ${deploydir}</echo>
+        <echo>
+        	Project: 	${ant.project.name}  built
+        </echo>
     </target>
+	
+	<target name="blank">
+		
+		
+	</target>
 
-    <target name="sync">
-    	<sync todir="${deploydir}" includeEmptyDirs="true">
+    <target name="sync" depends="sql">
+    	<sync todir="${deploy.dir}" includeEmptyDirs="true">
     		<fileset dir=".">
     			<exclude name="WEB-INF/"/>
     			<exclude name="README.md"/>
     			<exclude name="build.xml"/>
     			<exclude name=".git"/>
     			<exclude name="mxunit/"/>
+    			<exclude name="lib/"/>
+    			<exclude name="sql/"/>
+    			<exclude name="unittests/"/>
     		</fileset>
     		<preserveintarget>
     		    <include name="WEB-INF/"/>
@@ -38,9 +72,9 @@
 		<sql
 		    driver="org.gjt.mm.mysql.Driver"
 			classpath="lib/mysql-connector-java-bin.jar"
-		    url="jdbc:mysql://localhost:3306/railodocs?characterEncoding=UTF-8&amp;useUnicode=true"
-		    userid="root"
-		    password="universe">
+		    url="jdbc:mysql://${db.host}:${db.port}/${db.name}?characterEncoding=UTF-8&amp;useUnicode=true"
+		    userid="${db.user}"
+		    password="${db.password}">
 		  <path>
 		    <fileset dir="sql/">
 		      <include name="*.sql"/>

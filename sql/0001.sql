@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `railodocs` ;
-USE `railodocs`;
 -- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
 --
 -- Host: localhost    Database: history
