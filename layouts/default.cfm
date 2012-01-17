@@ -54,27 +54,21 @@
     <div class="container-fluid">
 	  <div class="sidebar">
         <div class="well">
-          <h5>Sidebar</h5>
+          <h5><cfoutput>#server.railo.version# (#server.railo.versionName#)</cfoutput></h5>
           <ul>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="#buildURL("current.tags")#">Tags</a></li>
+            <li><a href="#buildURL("current.functions")#">Functions</a></li>
           </ul>
           <h5>Previous Versions:</h5>
           <ul>
-            <!--- <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li> --->
+			<cfloop array="#rc.versionlist#" index="ver">
+            <cfoutput><li><a href="##" title="#ver.getCodeName()#">#ver.getVersionNumber()#</a></li></cfoutput>
+			</cfloop>
           </ul>
           
         </div>
       </div>
       <div class="content">
-	
 		<cfoutput>#body#</cfoutput>
 
         <cfoutput>
