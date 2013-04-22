@@ -36,18 +36,53 @@
 	<fail message="db.port ${prop.message}" unless="db.port"/>
 	<fail message="deploy.host ${prop.message}" unless="deploy.host"/>
 	<fail message="deploy.port ${prop.message}" unless="deploy.port"/>
+
+
+	<property name="ftp.pass" value="" />
+	<property name="ftp.username" value="" />
+	<!-- FTP paramters -->
+	<fail message="ftp.server ${prop.message}" unless="ftp.server"/>
+	<fail message="ftp.remotepath ${prop.message}" unless="ftp.remotepath"/>
+	<fail message="ftp.user ${prop.message}" unless="ftp.user"/>
+	<fail message="ftp.pass ${prop.message}" unless="ftp.pass"/>
 	
+
+
+	<taskdef name="ftp"
+         classname="org.apache.tools.ant.taskdefs.optional.net.FTP">
+  <classpath>
+  	
+    <pathelement location="${basedir}/lib/ant-commons-net-1.6.5.jar"/>
 	
+    <pathelement location="${basedir}/lib/commons-net-3.2.jar"/>
+  </classpath>
+</taskdef>
 	
     <target name="main" depends="ftp" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
         <echo>
         	Project: 	${ant.project.name}  built
         </echo>
+
+
+		<delete dir="${deploy.dir}" />
+
+		
     </target>
 	
 	<target name="ftp" depends="sync">
 		<echo>FTP'ing the project up</echo>
-		
+		<ftp server="${ftp.server}"
+      		port="21"
+       		remotedir="${ftp.remotepath}"
+       		userid="${ftp.user}"
+       		password="${ftp.password}"
+       		passive="yes"
+       		depends="yes"
+       		verbose="true" >
+    		<fileset dir="${deploy.dir}">
+     
+    		</fileset>
+  		</ftp>
 	</target>
 
     <target name="sync" depends="sql">
