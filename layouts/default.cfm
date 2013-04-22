@@ -1,8 +1,12 @@
 <!DOCTYPE html>
+  <cfoutput>
+    
+  
 <html lang="en">
   <head>
+    <cfparam name="rc.versionlist" default="#[]#">
     <meta charset="utf-8">
-    <title>RailoDoc, from Railo Technologies</title>
+    <title>RailoDoc, from The Railo Company</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -29,7 +33,7 @@
 
   <body>
 
-    <cfoutput>
+    
 	<div class="topbar">
       <div class="topbar-inner">
         <div class="container-fluid">
@@ -47,14 +51,14 @@
         </div>
       </div>
     </div>
-	</cfoutput>
+	
 
 
 	
     <div class="container-fluid">
 	  <div class="sidebar">
         <div class="well">
-          <h5><cfoutput>#server.railo.version# (#server.railo.versionName#)</cfoutput></h5>
+          <h5>#server.railo.version# (#server.railo.versionName#)</h5>
           <ul>
             <li><a href="#buildURL("current.tags")#">Tags</a></li>
             <li><a href="#buildURL("current.functions")#">Functions</a></li>
@@ -62,22 +66,24 @@
           <h5>Previous Versions:</h5>
           <ul>
 			<cfloop array="#rc.versionlist#" index="ver">
-            <cfoutput><li><a href="##" title="#ver.getCodeName()#">#ver.getVersionNumber()#</a></li></cfoutput>
+            <li><a href="##" title="#ver.getCodeName()#">#ver.getVersionNumber()#</a></li>
 			</cfloop>
           </ul>
           
         </div>
       </div>
       <div class="content">
-		<cfoutput>#body#</cfoutput>
 
-        <cfoutput>
+
+  #body#
+
+        
 		<footer>
-          <p>&copy; Railo Technologies Gmbh #DateFormat(Now(), "yyyy")#</p>
+          <p>&copy; The Railo Company Limited #DateFormat(Now(), "yyyy")#</p>
         </footer>
-		</cfoutput>
+		
       </div>
     </div>
-
+</cfoutput>
   </body>
 </html>
