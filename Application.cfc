@@ -1,7 +1,7 @@
 component extends="org.corfield.framework"{
 	// Either put the org folder in your webroot or create a mapping for it!
 	
-	this.name = 'railodocs_org';
+	this.name = hash(getCurrentTemplatePath());
 	this.datasource = "railodocs";
 	this.ormEnabled = true;
 	// FW/1 - configuration:
