@@ -38,8 +38,6 @@
 	<fail message="deploy.port ${prop.message}" unless="deploy.port"/>
 
 
-	<property name="ftp.pass" value="" />
-	<property name="ftp.username" value="" />
 	<!-- FTP paramters -->
 	<fail message="ftp.server ${prop.message}" unless="ftp.server"/>
 	<fail message="ftp.remotepath ${prop.message}" unless="ftp.remotepath"/>
@@ -62,11 +60,7 @@
         <echo>
         	Project: 	${ant.project.name}  built
         </echo>
-
-
-		<delete dir="${deploy.dir}" />
-
-		
+	
     </target>
 	
 	<target name="ftp" depends="sync">
@@ -75,7 +69,7 @@
       		port="21"
        		remotedir="${ftp.remotepath}"
        		userid="${ftp.user}"
-       		password="${ftp.password}"
+       		password="${ftp.pass}"
        		passive="yes"
        		depends="yes"
        		verbose="true" >
