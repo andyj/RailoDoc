@@ -39,28 +39,41 @@
 	
 	
 	
-    <target name="main" depends="sync" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
+    <target name="main" depends="ftp" description="Builds the project after Jenkins downloads it and runs any tests we need to. ">
         <echo>
         	Project: 	${ant.project.name}  built
         </echo>
     </target>
 	
-	<target name="blank">
-		
+	<target name="ftp" depends="sync">
+		<echo>FTP'ing the project up</echo>
 		
 	</target>
 
     <target name="sync" depends="sql">
     	<sync todir="${deploy.dir}" includeEmptyDirs="true">
     		<fileset dir=".">
+
+    			<exclude name="build/" />
+    			<exclude name="build.properties"/>
+    			<exclude name="build.xml"/>
     			<exclude name="WEB-INF/"/>
     			<exclude name="README.md"/>
-    			<exclude name="build.xml"/>
     			<exclude name=".git"/>
     			<exclude name="mxunit/"/>
     			<exclude name="lib/"/>
     			<exclude name="sql/"/>
     			<exclude name="unittests/"/>
+    			<exclude name="coldspring/docs/"/>
+    			<exclude name="coldspring/readme.txt"/>
+    			<exclude name="coldspring/LICENSE"/>
+    			<exclude name="coldspring/NOTICE"/>
+    			<exclude name="coldspring/examples/"/>
+    			<exclude name="coldspring/tests/"/>
+    			<exclude name="coldspring/unittests/"/>
+				<exclude name="coldspring/modelglue/"/>
+				<exclude name="coldspring/machii/"/>
+
     		</fileset>
     		<preserveintarget>
     		    <include name="WEB-INF/"/>
@@ -68,7 +81,9 @@
     	</sync>
     </target>
 	
-	<target name="sql">
+
+
+	<target name="sql" depends="clearbuild">
 		<sql
 		    driver="org.gjt.mm.mysql.Driver"
 			classpath="lib/mysql-connector-java-bin.jar"
@@ -81,6 +96,11 @@
 		    </fileset>
 		  </path>
 		</sql>
+	</target>
+
+	<target name="clearbuild">
+		<delete dir="${deploy.dir}" />
+
 	</target>
 
 </project>
