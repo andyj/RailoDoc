@@ -62,24 +62,65 @@
         </echo>
 	
     </target>
+
+
+    <target name="info">
+
+    	<echo>${prop.message}</echo>
+
+
+    </target>
 	
-	<target name="ftp" depends="sync">
+	<target name="ftp" depends="zip">
 		<echo>FTP'ing the project up</echo>
 		<ftp server="${ftp.server}"
       		port="21"
-       		remotedir="${ftp.remotepath}"
+       		remotedir="/railodocs.org/"
        		userid="${ftp.user}"
        		password="${ftp.pass}"
        		passive="yes"
        		depends="yes"
-       		verbose="true" >
+       		verbose="true" 
+			binary="no"
+       		>
     		<fileset dir="${deploy.dir}">
-     
+     			<include name="*.zip" />
     		</fileset>
   		</ftp>
 	</target>
 
-    <target name="sync" depends="sql">
+	<target name="zip" depends="sql">
+
+		<zip destfile="${deploy.dir}/${ant.project.name}.zip">
+			<fileset dir=".">
+
+    			<exclude name="build/" />
+    			<exclude name="build.properties"/>
+    			<exclude name="build.xml"/>
+    			<exclude name="WEB-INF/"/>
+    			<exclude name="README.md"/>
+    			<exclude name=".git"/>
+    			<exclude name="mxunit/"/>
+    			<exclude name="lib/"/>
+    			<exclude name="sql/"/>
+    			<exclude name="unittests/"/>
+    			<exclude name="coldspring/docs/"/>
+    			<exclude name="coldspring/readme.txt"/>
+    			<exclude name="coldspring/LICENSE"/>
+    			<exclude name="coldspring/NOTICE"/>
+    			<exclude name="coldspring/examples/"/>
+    			<exclude name="coldspring/tests/"/>
+    			<exclude name="coldspring/unittests/"/>
+				<exclude name="coldspring/modelglue/"/>
+				<exclude name="coldspring/machii/"/>
+
+    		</fileset>
+
+		</zip>
+      		
+	</target>
+
+    <target name="sync">
     	<sync todir="${deploy.dir}" includeEmptyDirs="true">
     		<fileset dir=".">
 
@@ -112,7 +153,7 @@
 	
 
 
-	<target name="sql" depends="clearbuild">
+	<target name="sql">
 		<sql
 		    driver="org.gjt.mm.mysql.Driver"
 			classpath="lib/mysql-connector-java-bin.jar"
