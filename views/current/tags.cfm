@@ -43,15 +43,16 @@
 			
 			<ul>
 				<cfloop array="#items#" index="i">				
-				<li>
+				
 					<cfset taginfo = getTagData(prefix,i)>
 					<cfset aBodyTypes[tagInfo.bodyType] = "">
+					
 					<cfif taginfo.status == "implemeted">
-					<a href="#buildURL("current.tag&item=#i#")#">#prefix##i#
+						<li><a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</li>
 					<cfelse>
-						<strike>#i#</strike>	(#taginfo.status#)
+						<li><strike>#i#</strike> (#taginfo.status#)</li> 
 					</cfif>
-				</li>
+				
 				</cfloop>
 			</ul>
 	</cfloop>

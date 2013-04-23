@@ -5,6 +5,7 @@
 <html lang="en">
   <head>
     <cfparam name="rc.versionlist" default="#[]#">
+    <cfparam name="rc.tflist" default="#[]#">
     <meta charset="utf-8">
     <title>RailoDoc, from The Railo Company</title>
     <meta name="description" content="">
@@ -22,13 +23,43 @@
         padding-top: 60px;
       }
     </style>
-
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <!-- Le fav and touch icons 
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 	-->
+
+  <script>
+  //Add functionality to the String object
+  if (typeof String.prototype.startsWith != 'function') {
+  
+    String.prototype.startsWith = function (str){
+     return this.indexOf(str) == 0;
+    };
+  }
+
+  $(function() {
+    var availableTags = #SerializeJSON(rc.tflist)#;
+    $( "##tags" ).autocomplete({
+      source: availableTags,
+      select: function( event, ui ) {
+
+              if(ui.item.value.startsWith("cf")){
+                window.location = "#buildURL("current.tag&item=")#" + ui.item.value;
+              }
+              else {
+                window.location = "#buildURL("current.function&item=")#" + ui.item.value; 
+              }
+
+               
+              }
+    });
+  });
+  </script>
   </head>
 
   <body>
@@ -45,8 +76,9 @@
           </ul>
         
 		  <form class="pull-left" action="/index.cfm">
+          
 			 <input type="hidden" name="action" value="current.search">
-            <input type="text" placeholder="Tag or Function" name="q">
+            <input type="text" id="tags" placeholder="Tag or Function" name="q">
           </form>
         </div>
       </div>
@@ -73,12 +105,10 @@
         </div>
       </div>
       <div class="content">
-
-
-  #body#
+        #body#
 
         
-		<footer>
+		    <footer>
           <p>&copy; The Railo Company Limited #DateFormat(Now(), "yyyy")#</p>
         </footer>
 		

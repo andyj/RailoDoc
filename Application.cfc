@@ -29,6 +29,7 @@ component extends="org.corfield.framework"{
 	function setupRequest() {
 		ORMReload();
 		controller('versions.list');
+		controller('current.tagfunctionlist');
 	}
 
 }

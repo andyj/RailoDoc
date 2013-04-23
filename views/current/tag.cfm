@@ -1,10 +1,19 @@
 <cfparam name="rc.item">
+
+<cfif rc.item.startsWith("cf")> 
+	<cfset rc.item = Right(rc.item, Len(rc.item)-2)>
+</cfif>
+
+
+
 <cfoutput>
 <cfset prefix = "cf">
 <cfset tagInfo = getTagData(prefix,rc.item)>
+
+
 <section id="function_description">
   <div class="page-header">
-    <h1>#rc.item# <small>Information about the #rc.item# tag</small></h1>
+    <h1>#prefix##rc.item# <small>Information about the #prefix##rc.item# tag</small></h1>
   </div>
 	<div class="row">
 		<div class="span16">
@@ -13,7 +22,7 @@
 		</div>	
 		<div class="span16">
 			<h3>Syntax</h3>
-			<cfdump var="#tagInfo#">
+			
 			<code>
 				<!--- Body type: free, prohibited --->
 				&lt;#prefix##rc.item#
@@ -24,11 +33,18 @@
 				[#attr# = "#tagInfo.attributes[attr].type#"]<br>				
 				</cfif>
 				</cfloop>
-				#prefix##rc.item#&gt;
+
+				<cfif tagInfo.bodyType EQ "prohibited">
+					/&gt;
+				</cfif>
+				
 			</code>
 			<br>
-			This tag also supports CFSCript syntax:
+
+
+
 			
+			This tag also supports CFSCript syntax:
 			<code>
 			
 			</code>
@@ -58,6 +74,7 @@
 					</cfloop>
 				</tbody>
 			</table>
+			<cfdump var="#tagInfo#" expand="false">
 		</div>	
 
 	</div>
