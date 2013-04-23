@@ -109,7 +109,7 @@
 
         
 		    <footer>
-          <p>&copy; The Railo Company Limited #DateFormat(Now(), "yyyy")#</p>
+          <p>&copy; <a href="http://www.getrailo.com">The Railo Company Limited</a> #DateFormat(Now(), "yyyy")#</p>
         </footer>
 		
       </div>
