@@ -50,7 +50,7 @@
 					<cfif taginfo.status == "implemeted">
 						<li><a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</li>
 					<cfelse>
-						<li><strike>#i#</strike> (#taginfo.status#)</li> 
+						<li><strike>#prefix##i#</strike> (#taginfo.status#)</li> 
 					</cfif>
 				
 				</cfloop>

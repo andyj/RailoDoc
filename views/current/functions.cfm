@@ -42,7 +42,7 @@
 				<li>
 					<cfset funcinfo = getFunctionData(i)>
 					<cfif funcinfo.status == "implemeted">
-					<a href="#buildURL("current.function&item=#i#")#">#i#
+					<a href="#buildURL("current.function&item=#i#")#">#i#</a>
 					<cfelse>
 						<strike>#i#</strike>	(#funcinfo.status#)
 					</cfif>
