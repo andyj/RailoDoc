@@ -7,7 +7,7 @@
     <cfparam name="rc.versionlist" default="#[]#">
     <cfparam name="rc.tflist" default="#[]#">
     <meta charset="utf-8">
-    <title>RailoDoc, from The Railo Company</title>
+    <title>Railo Documentation Viewer, from The Railo Company</title>
     <meta name="description" content="">
     <meta name="author" content="Mark Drew">
     <meta name="robots" content="noindex">
