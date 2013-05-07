@@ -1,5 +1,6 @@
 	<cfscript>
 		//	Setup the GroupList
+		//This should be done at controller level 
 		prefix = "cf";
 		tagList = getTagList();
 		tagList = StructKeyArray(tagList[prefix]);
@@ -47,30 +48,16 @@
 			
 			<ul>
 				<cfloop array="#items#" index="i">				
-				
+					<li>
 					<cfset taginfo = getTagData(prefix,i)>
 					<cfset aBodyTypes[tagInfo.bodyType] = "">
 					
 					<cfif taginfo.status == "implemeted">
-						<li><a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</a>
-
-							<cfif request.subtags.keyExists(i)>
-									<cfset taginfo = getTagData(prefix, i)>
-
-								<ul>
-									<li>	
-
-										<cfdump var="#taginfo.attributes[request.subtags[i].attribute]#">
-										
-
-										Other versions of #i#</li>
-								</ul>
-							</cfif>
-						</li>
+						<a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</a>
 					<cfelse>
-						<li><strike>#prefix##i#</strike> (#taginfo.status#)</li> 
+						<strike>#prefix##i#</strike> (#taginfo.status#)
 					</cfif>
-				
+					</li>
 				</cfloop>
 			</ul>
 	</cfloop>
