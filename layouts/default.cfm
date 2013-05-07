@@ -50,10 +50,10 @@
       select: function( event, ui ) {
 
               if(ui.item.value.startsWith("cf")){
-                window.location = "#buildURL("current.tag&item=")#" + ui.item.value;
+                window.location = "/tag/" + ui.item.value;
               }
               else {
-                window.location = "#buildURL("current.function&item=")#" + ui.item.value; 
+                window.location = "/function/" + ui.item.value; 
               }
 
                

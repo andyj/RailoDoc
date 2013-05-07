@@ -11,7 +11,15 @@ component extends="org.corfield.framework"{
 		reloadApplicationOnEveryRequest = true, 
 		unhandledPaths='/railo-context/admin/',
 		usingSubsystems=false
+
 	};
+
+	variables.framework.routes = [
+  		{ "/tag/:id" = "/current/tag/item/:id"},
+  		{ "/function/:id" = "/current/function/item/:id"},
+  		{ "/functions/" = "/current/functions"},
+  		{ "/tags/" = "/current/tags"}
+	];
 	
 	// controllers/layouts/services/views are in this folder (allowing for non-empty context root):
 	// If your CFML engine supports it, you can create the framework struct like this:
