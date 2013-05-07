@@ -3,7 +3,18 @@ component extends="org.corfield.framework"{
 	
 	this.name = hash(getCurrentTemplatePath());
 	this.datasource = "railodocs";
+
+
+	// ORM Settings
+	/*
+
+	*/
 	this.ormEnabled = true;
+	this.ormsettings = {
+		cfclocation = expandPath("/model/")
+	};
+
+
 	// FW/1 - configuration:
 	variables.framework = {
 		reload = 'reload',
@@ -20,6 +31,13 @@ component extends="org.corfield.framework"{
   		{ "/functions/" = "/current/functions"},
   		{ "/tags/" = "/current/tags"}
 	];
+
+
+	variables.railodocs = {
+		subtags = {
+			'file': {attribute:"action"}
+		}
+	};
 	
 	// controllers/layouts/services/views are in this folder (allowing for non-empty context root):
 	// If your CFML engine supports it, you can create the framework struct like this:
@@ -32,12 +50,20 @@ component extends="org.corfield.framework"{
 		bf = createObject('component','coldspring.beans.DefaultXmlBeanFactory').init();
 		bf.loadBeans( expandPath('config/coldspring.xml.cfm') );
 		setBeanFactory(bf);
+
+
+
 	}
 	
 	function setupRequest() {
+		OrmFlush();
 		ORMReload();
+
+		request.subtags = variables.railodocs.subtags;
+
 		controller('versions.list');
 		controller('current.tagfunctionlist');
+
 	}
 
 }
