@@ -9,7 +9,11 @@
 		HalfLetter = list.getHalfWayGroup();
 		litems = "_,x_";
 		aBodyTypes = {};
+		
+
 	</cfscript>
+
+
 <section id="tags">
   <div class="page-header">
     <h1>Tags </h1>
@@ -48,7 +52,21 @@
 					<cfset aBodyTypes[tagInfo.bodyType] = "">
 					
 					<cfif taginfo.status == "implemeted">
-						<li><a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</li>
+						<li><a href="#buildURL("current.tag&item=#i#")#">#prefix##i#</a>
+
+							<cfif request.subtags.keyExists(i)>
+									<cfset taginfo = getTagData(prefix, i)>
+
+								<ul>
+									<li>	
+
+										<cfdump var="#taginfo.attributes[request.subtags[i].attribute]#">
+										
+
+										Other versions of #i#</li>
+								</ul>
+							</cfif>
+						</li>
 					<cfelse>
 						<li><strike>#prefix##i#</strike> (#taginfo.status#)</li> 
 					</cfif>

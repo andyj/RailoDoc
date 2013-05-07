@@ -6,6 +6,9 @@ component output="false"{
 
 	function list(rc){
 		variables.fw.service( "versions.list", "versionlist");	
+		variables.fw.service( "versions.majorList", "majorversionlist");	
+
+
 	}
 
 }

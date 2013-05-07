@@ -96,11 +96,13 @@
             <li><a href="#buildURL("current.tags")#">Tags</a></li>
             <li><a href="#buildURL("current.functions")#">Functions</a></li>
           </ul>
-          <h5>Previous Versions:</h5>
+          <h5>Previous Major Versions:</h5>
           <ul>
-			<cfloop array="#rc.versionlist#" index="ver">
-            <li><a href="##" title="#ver.getCodeName()#">#ver.getVersionNumber()#</a></li>
-			</cfloop>
+            <cfloop collection="#rc.majorversionlist#" item="mv">
+            <li>
+              <a href="#buildURL("previous.versionlist&majorversion=#mv#")#">#mv#.x</a>
+            </li>
+            </cfloop>
           </ul>
           
         </div>
