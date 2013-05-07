@@ -43,11 +43,12 @@
 
 
 
-			
+			<!---			
 			This tag also supports CFSCript syntax:
 			<code>
 			
 			</code>
+			--->
 		</div>
 		
 		
