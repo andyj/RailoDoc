@@ -6,6 +6,8 @@
   <head>
     <cfparam name="rc.versionlist" default="#[]#">
     <cfparam name="rc.tflist" default="#[]#">
+    <cfparam name="rc.majorversionlist" default="#{}#">
+
     <meta charset="utf-8">
     <title>Railo Documentation Viewer, from The Railo Company</title>
     <meta name="description" content="">
