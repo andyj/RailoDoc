@@ -9,7 +9,7 @@
     <cfparam name="rc.majorversionlist" default="#{}#">
 
     <meta charset="utf-8">
-    <title>Railo Documentation Viewer, from The Railo Company</title>
+    <title>Railo Documentation Viewer, by The Railo Company</title>
     <meta name="description" content="">
     <meta name="author" content="Mark Drew">
     <meta name="robots" content="noindex">

@@ -1,6 +1,6 @@
 <cfparam name="rc.item">
 
-<cfif rc.item.startsWith("cf")> 
+<cfif rc.item.startsWith("cf")>
 	<cfset rc.item = Right(rc.item, Len(rc.item)-2)>
 </cfif>
 
@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="span16">
 			<h3>Description</h3>
-			<p>#tagInfo.description#</p>
+			<p>#formatText(tagInfo.description)#</p>
 		</div>	
 		<div class="span16">
 			<h3>Syntax</h3>
@@ -69,8 +69,8 @@
 					<tr>
 						<td>#attr#</td>
 						<td>#data.required#</td>
-						<td>#data.description#</td>
-						<td>#data.status#</td>
+						<td>#formatText(data.description)#</td>
+						<td>#replace(data.status, 'implemeted', 'implemented')#</td>
 					</tr>
 					</cfloop>
 				</tbody>
@@ -103,3 +103,34 @@
 </section>
 
 </cfoutput>
+
+<cffunction name="formatText">
+	<cfargument name="text"/>
+	<cfset local.inList = false />
+	<cfif find(chr(10)&chr(10), text)>
+		<cfset text = replace(text, chr(10)&chr(10), '#chr(10)# #chr(10)#', 'all')/>
+	</cfif>
+	<cfloop list="#text#" delimiters="#chr(10)#" index="local.line">
+		<cfif left(line, 2) eq "- ">
+			<cfif not inList>
+				<cfoutput><ul></cfoutput>
+				<cfset inList = true />
+			<cfelse>
+				<cfoutput></li></cfoutput>
+			</cfif>
+			<cfoutput><li>#replace(line, '- ', '')#</cfoutput>
+			<cfcontinue/>
+		<cfelseif local.inList>
+			<cfoutput></li></ul></cfoutput>
+			<cfset local.inList = false />
+		</cfif>
+		<cfif right(listFirst(line, ' '), 1) eq ':'>
+			<cfoutput><b>#listFirst(line, ' ')#</b> &nbsp;#listRest(line, ' ')#<br/></cfoutput>
+		<cfelse>
+			<cfoutput>#line#<br/></cfoutput>
+		</cfif>
+	</cfloop>
+	<cfif local.inlist>
+		<cfoutput></li></ul></cfoutput>
+	</cfif>
+</cffunction>

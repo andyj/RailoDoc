@@ -8,7 +8,7 @@
 	<div class="row">
 		<div class="span16">
 			<h3>Description</h3>
-			<p>#funcInfo.description#</p>
+			<p>#formatText(funcInfo.description)#</p>
 		</div>	
 		
 		<div class="span16">
@@ -20,19 +20,17 @@
 		<div class="span16">
 			<h3>Syntax</h3>
 			
+			<cfset argList = "">
+			<cfloop array="#funcInfo.arguments#" index="argmt">
+				<cfif !argmt.required>
+					<cfset argList = ListAppend(argList, "[#argmt.name#]", chr(65535))>
+				<cfelse>
+					<cfset argList = ListAppend(argList, argmt.name, chr(65535))>
+				</cfif>
+			</cfloop>
 			<code>
-				<cfset argList = "">
-				<cfloop array="#funcInfo.arguments#" index="argmt">
-					<cfif !argmt.required>
-						<cfset argList = ListAppend(argList, "[#argmt.name#]")>
-					<cfelse>
-						<cfset argList = ListAppend(argList, argmt.name)>
-					</cfif>
-				</cfloop>
-
-
 				<!--- Body type: free, prohibited --->
-				&lt;cfset #rc.item#(#argList#)&gt;
+				&lt;cfset<cfif funcInfo.returnType neq 'void'> my#UCFirst(funcInfo.returnType)# =</cfif> #rc.item#(#replace(argList, chr(65535), ', ', 'all')#)&gt;
 
 
 <!---
@@ -68,8 +66,8 @@
 					<tr>
 						<td>#argmt.name#</td>
 						<td>#argmt.required#</td>
-						<td>#argmt.description#</td>
-						<td>#argmt.status#</td>
+						<td>#formatText(argmt.description)#</td>
+						<td>#replace(argmt.status, 'implemeted', 'implemented')#</td>
 					</tr>
 					</cfloop>
 				</tbody>
@@ -104,3 +102,34 @@
 </section>
 
 </cfoutput>
+
+<cffunction name="formatText">
+	<cfargument name="text"/>
+	<cfset local.inList = false />
+	<cfif find(chr(10)&chr(10), text)>
+		<cfset text = replace(text, chr(10)&chr(10), '#chr(10)# #chr(10)#', 'all')/>
+	</cfif>
+	<cfloop list="#text#" delimiters="#chr(10)#" index="local.line">
+		<cfif left(line, 2) eq "- ">
+			<cfif not inList>
+				<cfoutput><ul></cfoutput>
+				<cfset inList = true />
+			<cfelse>
+				<cfoutput></li></cfoutput>
+			</cfif>
+			<cfoutput><li>#replace(line, '- ', '')#</cfoutput>
+			<cfcontinue/>
+		<cfelseif local.inList>
+			<cfoutput></li></ul></cfoutput>
+			<cfset local.inList = false />
+		</cfif>
+		<cfif right(listFirst(line, ' '), 1) eq ':'>
+			<cfoutput><b>#listFirst(line, ' ')#</b> &nbsp;#listRest(line, ' ')#<br/></cfoutput>
+		<cfelse>
+			<cfoutput>#line#<br/></cfoutput>
+		</cfif>
+	</cfloop>
+	<cfif local.inlist>
+		<cfoutput></li></ul></cfoutput>
+	</cfif>
+</cffunction>
